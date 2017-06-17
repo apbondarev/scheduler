@@ -3,7 +3,7 @@ package com.ab.scheduler;
 import java.time.LocalDateTime;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.Future;
 
 import javax.security.auth.callback.Callback;
 
@@ -20,7 +20,7 @@ public interface Scheduler {
      * @param callable
      * @return a ScheduledFuture that can be used to extract result or cancel.
      */
-    <V> ScheduledFuture<V> schedule(LocalDateTime when, Callable<V> callable);
+    <V> Future<V> schedule(LocalDateTime when, Callable<V> callable);
 
     /**
      * Shutdown scheduler gracefully.

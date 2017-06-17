@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.After;
@@ -75,7 +74,7 @@ public class SchedulerTest {
             List<Future<?>> futures = new ArrayList<>(NUM_TASKS);
             for (int t = 0; t < NUM_TASKS; t++) {
                 int runNum = t;
-                ScheduledFuture<Integer> f = scheduler.schedule(now().plus(STEP_MILLIS * (runNum + 1), MILLIS),
+                Future<Integer> f = scheduler.schedule(now().plus(STEP_MILLIS * (runNum + 1), MILLIS),
                         () -> {
                             ThreadLocalRandom rnd = ThreadLocalRandom.current();
                             Thread.sleep(STEP_MILLIS * rnd.nextInt(NUM_TASKS));
@@ -104,7 +103,7 @@ public class SchedulerTest {
     @Test(timeout = 2 * STEP_MILLIS + 1000)
     public void testScheduleExceptional() throws InterruptedException, ExecutionException {
         LocalDateTime now = LocalDateTime.now();
-        ScheduledFuture<Integer> future = schedulerSingle.schedule(now.plus(STEP_MILLIS, MILLIS),
+        Future<Integer> future = schedulerSingle.schedule(now.plus(STEP_MILLIS, MILLIS),
                 () -> {
                     Thread.sleep(STEP_MILLIS);
                     throw new IllegalArgumentException(EXCEPTION_MSG);

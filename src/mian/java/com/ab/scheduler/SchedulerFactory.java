@@ -2,7 +2,7 @@ package com.ab.scheduler;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.Future;
 
 /**
  * Factory class for creating schedulers.
@@ -17,7 +17,7 @@ public abstract class SchedulerFactory {
             current = new Scheduler() {
                 Scheduler target = createDefault();
                 @Override
-                public <V> ScheduledFuture<V> schedule(LocalDateTime when, Callable<V> callable) {
+                public <V> Future<V> schedule(LocalDateTime when, Callable<V> callable) {
                     return target.schedule(when, callable);
                 }
 
